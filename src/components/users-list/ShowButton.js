@@ -1,29 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class ShowButton extends Component {
-  render() {
-    return <button onClick={getData.bind(this)}>button</button>;
-  }
-}
-
-function getData() {
-  const get = new XMLHttpRequest();
-  get.open(
-    'GET',
-    'https://tanuhaua.github.io/datas-file-json/visitors.json',
-    true
-  );
-  get.addEventListener('load', () => {
-    if (get.status === 200) {
-      const jasonObj = JSON.parse(get.responseText);
-      this.props.changeState({
-        arr: jasonObj,
-        toggle: false,
-        total: jasonObj.length
-      });
-    }
-  });
-  get.send();
+const ShowButton = (props) => {
+  const getData = () => {
+    const get = new XMLHttpRequest();
+    get.open(
+      'GET',
+      'https://tanuhaua.github.io/datas-file-json/visitors.json',
+      true
+    );
+    get.addEventListener('load', () => {
+      if (get.status === 200) {
+        const jasonObj = JSON.parse(get.responseText);
+        props.changeState({
+          arr: jasonObj,
+          toggle: false,
+          total: jasonObj.length
+        });
+      }
+    });
+    get.send();
+  }  
+  
+  return (<button onClick={getData}>button</button>);  
 }
 
 export default ShowButton;
